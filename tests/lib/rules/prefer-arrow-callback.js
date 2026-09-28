@@ -307,6 +307,7 @@ ruleTesterTypeScript.run("prefer-arrow-callback", rule, {
 		"foo((function() { this.bar(); }).bind(obj).bind(this))",
 		"test('clean', function (this: any) { this.foo = 'Cleaned!';});",
 		"obj.test('clean', function (foo) { this.foo = 'Cleaned!'; });",
+		"acceptsCb(function (this: Foo) {})",
 	],
 	invalid: [
 		{
@@ -513,11 +514,6 @@ ruleTesterTypeScript.run("prefer-arrow-callback", rule, {
 		{
 			code: "foo(function():string { return 'foo' });",
 			output: "foo(():string => { return 'foo' });",
-			errors,
-		},
-		{
-			code: "test('foo', function (this: any) {});",
-			output: null,
 			errors,
 		},
 	],
